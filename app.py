@@ -231,3 +231,19 @@ with tab3:
                 st.warning("Could not find historical purchase count columns (e.g., 'count_latte') in the uploaded file.")
     else:
         st.info("ℹ️ Please upload a CSV and run a batch prediction in the **'Batch Forecasting'** tab to see insights here.")
+
+# In app.py, modify the loading function
+
+@st.cache_resource
+def load_all_models():
+    """Load all trained models from disk."""
+    try:
+        pipeline = joblib.load('coffee_purchase_predictor.joblib')
+        label_encoder = joblib.load('label_encoder.joblib')
+        forecast_models = joblib.load('demand_forecasting_models.joblib')
+        return pipeline, label_encoder, forecast_models
+    except FileNotFoundError as e:
+        st.error(f"Model file not found: {e.filename}. Please ensure all .joblib files are present.")
+        return None, None, None
+
+pipeline, label_encoder, forecast_models = load_all_models()
