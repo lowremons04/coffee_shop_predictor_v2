@@ -1,0 +1,13 @@
+# .streamlit/config.toml
+
+[server]
+# This line is no longer needed in the latest Streamlit versions,
+# but we'll keep it commented out for reference.
+# python = "3.11"
+
+# This is the crucial fix. It tells Streamlit to not watch the filesystem for changes.
+fileWatcherType = "none"
+
+[client]
+# This just prevents a "new version available" message from cluttering the app.
+showSidebarNavigation = false
